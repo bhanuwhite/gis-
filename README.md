@@ -1,2 +1,2 @@
-# gis-
-Display the map features using mapbox
+# gis-mapbox
+Display the map features using mapbox in angular 
