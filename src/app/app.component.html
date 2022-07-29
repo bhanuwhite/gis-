@@ -1,34 +1,20 @@
 <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="[75, 32]" [cursorStyle]="cursorStyle">
 
-  <!-- <mgl-geojson-source id="points" [data]="points"></mgl-geojson-source>
-  <mgl-layer id="points" source="points" type="symbol" [layout]="{
-    'icon-image': '{icon}-15',
-    'icon-allow-overlap': true
-  }" (click)="onClick($event)" (mouseEnter)="cursorStyle = 'pointer'" (mouseLeave)="cursorStyle = ''"></mgl-layer>
-  <mgl-popup *ngIf="selectedPoint" [lngLat]="selectedPoint.geometry.coordinates" (close)="selectedPoint = null">
-    <span [innerHTML]="selectedPoint.properties.description"></span>
-  </mgl-popup> -->
-
   <mgl-geojson-source id="point" [data]="points">
-    <!-- <mgl-feature [properties]="" [geometry]="{
-    'type': 'Point',
-    'coordinates': [75, 32]
-  }" [mglDraggable]="targetLayer" (dragStart)="onDragStart($event)" (dragEnd)="onDragEnd($event)"
-      (drag)="onDrag($event)"></mgl-feature> -->
   </mgl-geojson-source>
 
   <mgl-marker [lngLat]="[75, 32]" [draggable]="true" (markerDragEnd)="onDragEnd($event)"></mgl-marker>
 
   <mgl-layer #targetLayer id="point" type="symbol" source="point" [layout]="{
     'icon-image': '{icon}-15',
+    'icon-size': 2.0,
     'icon-allow-overlap': true
   }" (click)="onClick($event)" (mouseEnter)="cursorStyle = 'pointer'" (mouseLeave)="cursorStyle = ''"></mgl-layer>
 
-  <mgl-control position="bottom-left">
-    <div style="background: white;padding: 10px;">
-      <div>Longitude:&nbsp;{{ coordinates[0]}}</div>
-      <div>Latitude:&nbsp;{{ coordinates[1]}}</div>
-    </div>
+  <mgl-control mglGeolocate [positionOptions]="{
+    enableHighAccuracy: true
+  }" [trackUserLocation]="true">
+    
   </mgl-control>
 
   <mgl-popup *ngIf="selectedPoint" [lngLat]="selectedPoint.geometry.coordinates" (close)="selectedPoint = null">
@@ -37,3 +23,19 @@
 
 
 </mgl-map>
+
+<div style="background: white;padding: 10px;position: absolute;bottom: 0%;left:0">
+  <div>Longitude:&nbsp;{{ coordinates[0]}}</div>
+  <div>Latitude:&nbsp;{{ coordinates[1]}}</div>
+</div>
+
+
+<!-- <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'">
+  <mgl-control
+    mglGeolocate
+    [positionOptions]="{
+      enableHighAccuracy: true
+    }"
+    [trackUserLocation]="true"
+  ></mgl-control>
+</mgl-map> -->
