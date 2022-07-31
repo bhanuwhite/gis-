@@ -1,9 +1,10 @@
-<mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="[75, 32]" [cursorStyle]="cursorStyle">
+<input class="inputmap" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
+<mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="coordinatesPoint" [cursorStyle]="cursorStyle">
 
   <mgl-geojson-source id="point" [data]="points">
   </mgl-geojson-source>
 
-  <mgl-marker [lngLat]="[75, 32]" [draggable]="true" (markerDragEnd)="onDragEnd($event)"></mgl-marker>
+  <mgl-marker [lngLat]="coordinatesPoint" [draggable]="true" (markerDragEnd)="onDragEnd($event)"></mgl-marker>
 
   <mgl-layer #targetLayer id="point" type="symbol" source="point" [layout]="{
     'icon-image': '{icon}-15',
@@ -25,8 +26,8 @@
 </mgl-map>
 
 <div style="background: white;padding: 10px;position: absolute;bottom: 0%;left:0">
-  <div>Longitude:&nbsp;{{ coordinates[0]}}</div>
-  <div>Latitude:&nbsp;{{ coordinates[1]}}</div>
+  <div>Longitude:&nbsp;{{ coordinatesPoint[0]}}</div>
+  <div>Latitude:&nbsp;{{ coordinatesPoint[1]}}</div>
 </div>
 
 

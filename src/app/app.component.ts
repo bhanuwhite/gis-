@@ -1,6 +1,9 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MapMouseEvent } from 'mapbox-gl';
 import { Marker } from 'mapbox-gl';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
+import { APIService } from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +11,7 @@ import { Marker } from 'mapbox-gl';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  cursorStyle:any;
+  cursorStyle: any;
   points: GeoJSON.FeatureCollection<GeoJSON.Point>;
   selectedPoint: any;
   title = 'gis-mapbox';
@@ -17,7 +20,17 @@ export class AppComponent {
     'circle-color': '#3887be'
   };
 
-  constructor(private ChangeDetectorRef: ChangeDetectorRef) {
+  options: any = {
+    types: [],
+    // componentRestrictions: { country: 'UA' }
+  }
+
+  location: any;
+  coordinatesPoint: any = [0, 0]
+
+  @ViewChild("placesRef") placesRef: GooglePlaceDirective[] = [];
+
+  constructor(private ChangeDetectorRef: ChangeDetectorRef, private APIService: APIService) {
     this.points = {
       'type': 'FeatureCollection',
       'features': [{
@@ -112,13 +125,26 @@ export class AppComponent {
     };
   }
 
+  public handleAddressChange(address: Address) {
+    this.location = address.formatted_address;
+    this.apiCallForLocation(this.location)
+    console.log(address)
+    // Do some stuff
+  }
+
+  apiCallForLocation(loc: any) {
+    this.APIService.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${loc}.json?access_token=pk.eyJ1IjoiaGJoamhzIiwiYSI6ImNsNWo3ZGNhODBmODAzY3BqODhuejB3ZmoifQ.RqsEoPXFgDUq1mryoReotg`).subscribe(res => {
+      this.coordinatesPoint = res['features'][0]['geometry']['coordinates']
+    })
+  }
+
   onClick(evt: MapMouseEvent) {
     this.selectedPoint = null;
     this.ChangeDetectorRef.detectChanges();
     this.selectedPoint = (<any>evt).features[0];
   }
 
-  coordinates = [0, 0];
+  // coordinates = [0, 0];
 
   onDragStart(event: MapMouseEvent) {
     console.log('onDragStart', event);
@@ -128,13 +154,13 @@ export class AppComponent {
   //   console.log('onDragEnd', event);
   // }
   onDragEnd(marker: Marker) {
-    this.coordinates = marker.getLngLat().toArray();
+    this.coordinatesPoint = marker.getLngLat().toArray();
   }
 
   onDrag(event: MapMouseEvent) {
     console.log('onDrag', event);
-    this.coordinates = event.lngLat.toArray();
-    console.log(this.coordinates)
+    this.coordinatesPoint = event.lngLat.toArray();
+    // console.log(this.coordinatesPoint)
   }
 
   changeColor(color: string) {
