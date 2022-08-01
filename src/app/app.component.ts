@@ -26,7 +26,7 @@ export class AppComponent {
   }
 
   location: any;
-  coordinatesPoint: any = [0, 0]
+  coordinatesPoint: any = [78.48,17.38]
 
   @ViewChild("placesRef") placesRef: GooglePlaceDirective[] = [];
 
@@ -144,15 +144,10 @@ export class AppComponent {
     this.selectedPoint = (<any>evt).features[0];
   }
 
-  // coordinates = [0, 0];
-
   onDragStart(event: MapMouseEvent) {
     console.log('onDragStart', event);
   }
 
-  // onDragEnd(event: MapMouseEvent) {
-  //   console.log('onDragEnd', event);
-  // }
   onDragEnd(marker: Marker) {
     this.coordinatesPoint = marker.getLngLat().toArray();
   }
