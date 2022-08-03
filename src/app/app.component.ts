@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MapMouseEvent } from 'mapbox-gl';
 import { Marker } from 'mapbox-gl';
-import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
-import { Address } from 'ngx-google-places-autocomplete/objects/address';
+// import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+// import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { APIService } from './api.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class AppComponent {
   location: any;
   coordinatesPoint: any = [78.48,17.38]
 
-  @ViewChild("placesRef") placesRef: GooglePlaceDirective[] = [];
+  // @ViewChild("placesRef") placesRef: GooglePlaceDirective[] = [];
 
   constructor(private ChangeDetectorRef: ChangeDetectorRef, private APIService: APIService) {
     this.points = {
@@ -125,12 +125,12 @@ export class AppComponent {
     };
   }
 
-  public handleAddressChange(address: Address) {
-    this.location = address.formatted_address;
-    this.apiCallForLocation(this.location)
-    console.log(address)
-    // Do some stuff
-  }
+  // public handleAddressChange(address: Address) {
+  //   this.location = address.formatted_address;
+  //   this.apiCallForLocation(this.location)
+  //   console.log(address)
+  //   // Do some stuff
+  // }
 
   apiCallForLocation(loc: any) {
     this.APIService.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${loc}.json?access_token=pk.eyJ1IjoiaGJoamhzIiwiYSI6ImNsNWo3ZGNhODBmODAzY3BqODhuejB3ZmoifQ.RqsEoPXFgDUq1mryoReotg`).subscribe(res => {
@@ -161,4 +161,27 @@ export class AppComponent {
   changeColor(color: string) {
     this.layerPaint = { ...this.layerPaint, 'circle-color': color };
   }
+
+  addresses: string[] = [];
+  selectedAddress = '';
+
+  search(event: any) {
+    const searchTerm = event.target.value.toLowerCase();
+    if (searchTerm && searchTerm.length > 0) {
+      this.APIService
+        .search_word(searchTerm)
+        .subscribe((features:any) => {
+          this.addresses = features.map((feat:any) => feat.place_name);
+        });
+      } else {
+        this.addresses = [];
+      }
+  }
+
+  onSelect(address: string) {
+    this.selectedAddress = address;
+    this.addresses = [];
+    this.apiCallForLocation(this.selectedAddress)
+  }
+
 }

@@ -1,5 +1,17 @@
-<input class="inputmap" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
-<mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="coordinatesPoint" [cursorStyle]="cursorStyle">
+<!-- <input class="inputmap" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
+<div class="searchbar inputmap">
+  <div class="bar">
+    <input type="text" #searchbar (keyup)="search($event)" [value]="selectedAddress" placeholder="Search Here" />
+  </div>
+  <ul *ngIf="addresses.length > 0">
+    <li *ngFor="let address of addresses" (click)="onSelect(address)">
+      <p> {{ address }}</p>
+    </li>
+  </ul>
+</div>
+
+<mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="coordinatesPoint"
+  [cursorStyle]="cursorStyle">
 
   <mgl-geojson-source id="point" [data]="points">
   </mgl-geojson-source>
@@ -15,13 +27,13 @@
   <mgl-control mglGeolocate [positionOptions]="{
     enableHighAccuracy: true
   }" [trackUserLocation]="true">
-    
   </mgl-control>
+
+  <mgl-control position="top-left" mglGeocoder></mgl-control>
 
   <mgl-popup *ngIf="selectedPoint" [lngLat]="selectedPoint.geometry.coordinates" (close)="selectedPoint = null">
     <span [innerHTML]="selectedPoint.properties.description"></span>
   </mgl-popup>
-
 
 </mgl-map>
 
@@ -30,13 +42,3 @@
   <div>Latitude:&nbsp;{{ coordinatesPoint[1]}}</div>
 </div>
 
-
-<!-- <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'">
-  <mgl-control
-    mglGeolocate
-    [positionOptions]="{
-      enableHighAccuracy: true
-    }"
-    [trackUserLocation]="true"
-  ></mgl-control>
-</mgl-map> -->
