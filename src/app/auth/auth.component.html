@@ -1,0 +1,76 @@
+<div class="main-wrapper">
+    <div class="main-wrapper-inside">
+        <div class="sign-in-form">
+            <h1 class="heading"> Login</h1>
+            <!--Normal Login-->
+            <div *ngIf="isOtpLogin">
+                <form [formGroup]="loginForm">
+                    <div class="form-input-wrapper">
+                        <label class="cstm-label">Email</label>
+                        <div class="form-input-block">
+                            <mat-form-field class="form-filed" appearance="fill">
+                                <input matInput placeholder="Email Address" formControlName="email">
+                            </mat-form-field>
+                            <span class="input-icon">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-input-wrapper">
+                        <label class="cstm-label">Password</label>
+                        <div class="form-input-block">
+                            <mat-form-field class="form-filed" appearance="fill">
+                                <input matInput placeholder="Password" formControlName="password">
+                            </mat-form-field>
+                            <span class="input-icon">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <p class="forgot-psd">Forgot password?</p>
+                    <button mat-raised-button color="primary" class="login-btn" (click)="signinForm()">Login</button>
+                    <!--other login options-->
+                    <p class="other-option" (click)="openOtpLogin()">Login using OTP</p>
+                    <div class="social-media">
+                        <p>Or Login with using</p>
+                        <div>
+                            <span class="google"><i class="fa fa-google"></i></span>
+                            <span class="facebook"><i class="fa fa-facebook"></i></span>
+                            <span class="twitter"><i class="fa fa-twitter"></i></span>
+                            <span class="linkdin"><i class="fa fa-linkedin"></i></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!--Otp Login-->
+            <div *ngIf="!isOtpLogin">
+                <form>
+                    <div class="form-input-wrapper">
+                        <label class="cstm-label">Mobile Number</label>
+                        <div class="form-input-block">
+                            <mat-form-field class="form-filed" appearance="fill">
+                                <input matInput placeholder="Enter number">
+                            </mat-form-field>
+                            <span class="input-icon">
+                                <i class="fa fa-mobile"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-input-wrapper">
+                        <label class="cstm-label">OTP</label>
+                        <div class="form-input-block">
+                            <mat-form-field class="form-filed" appearance="fill">
+                                <input matInput placeholder="Enter otp">
+                            </mat-form-field>
+                            <span class="input-icon">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <button mat-raised-button color="primary" type="button" class="login-btn otp-login">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
