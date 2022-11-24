@@ -33,6 +33,7 @@ export class AuthComponent implements OnInit {
         sessionStorage.setItem('token', 'admin%admin');
       } else {
         Notiflix.Notify.failure('Invalid user ID or password');
+        this.loginForm.reset();
       }
     } else {
       Notiflix.Notify.warning('Please Fill up Mandetory Field');

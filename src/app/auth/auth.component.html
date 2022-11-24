@@ -6,9 +6,10 @@
             <div *ngIf="isOtpLogin">
                 <form [formGroup]="loginForm">
                     <div class="form-input-wrapper">
-                        <label class="cstm-label">Email</label>
-                        <div class="form-input-block">
-                            <mat-form-field class="form-filed" appearance="fill">
+
+                        <div class="form-input-block mt-4">
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label>Email</mat-label>
                                 <input matInput placeholder="Email Address" formControlName="email">
                             </mat-form-field>
                             <span class="input-icon">
@@ -16,17 +17,18 @@
                             </span>
                         </div>
                     </div>
-                    <div class="form-input-wrapper">
-                        <label class="cstm-label">Password</label>
-                        <div class="form-input-block">
-                            <mat-form-field class="form-filed" appearance="fill">
-                                <input matInput placeholder="Password" formControlName="password">
-                            </mat-form-field>
-                            <span class="input-icon">
-                                <i class="fa fa-lock"></i>
-                            </span>
-                        </div>
+                    <!-- <div class="form-input-wrapper"> -->
+                    <!-- <label class="cstm-label">Password</label> -->
+                    <div class="form-input-block mt-4">
+                        <mat-form-field class="form-filed" appearance="fill">
+                            <mat-label>Password</mat-label>
+                            <input matInput placeholder="Password" formControlName="password">
+                        </mat-form-field>
+                        <span class="input-icon">
+                            <i class="fa fa-lock"></i>
+                        </span>
                     </div>
+                    <!-- </div> -->
                     <p class="forgot-psd">Forgot password?</p>
                     <button mat-raised-button color="primary" class="login-btn" (click)="signinForm()">Login</button>
                     <!--other login options-->
