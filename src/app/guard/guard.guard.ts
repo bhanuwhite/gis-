@@ -27,7 +27,9 @@ export class GuardGuard implements CanActivate {
       return true;
     } else {
       Notiflix.Notify.warning('Unauthorized Login');
+
       this.router.navigate(['/']);
+
       return false;
     }
   }
