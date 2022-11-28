@@ -1,5 +1,6 @@
-<!-- <input class="inputmap" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
-<div class="searchbar inputmap">
+<!-- <input class="inputmap" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places"
+    (onAddressChange)="handleAddressChange($event)" /> -->
+<!-- <div class="searchbar inputmap">
     <div class="bar">
         <input type="text" #searchbar (keyup)="search($event)" [value]="selectedAddress" placeholder="Search Here" />
     </div>
@@ -8,11 +9,11 @@
             <p> {{ address }}</p>
         </li>
     </ul>
-</div>
+</div> -->
 <!--  -->
 
 <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="coordinatesPoint"
-    [cursorStyle]="cursorStyle">
+    [cursorStyle]="cursorStyle" #map>
 
     <mgl-geojson-source id="point" [data]="points">
     </mgl-geojson-source>
@@ -37,7 +38,13 @@
     </mgl-popup>
 
 </mgl-map>
-
+<!--  -->
+<!-- <div id="map" #map></div> -->
+<!-- <div class="calculation-box">
+    <p>Click the map to draw a polygon.</p>
+    <div id="calculated-area"></div>
+</div> -->
+<!--  -->
 <div style="background: white;padding: 10px;position: absolute;bottom: 0%;left:0">
     <div>Longitude:&nbsp;{{ coordinatesPoint[0]}}</div>
     <div>Latitude:&nbsp;{{ coordinatesPoint[1]}}</div>

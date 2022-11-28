@@ -1,0 +1,48 @@
+<!-- <nav class="navbar  text-white">
+    <div class="row">
+        <select name="" id="" (change)="onselectOption($event)">
+            <option value="" selected>Choose</option>
+            <option value="bar">Bar</option>
+            <option value="theatre">Theatre</option>
+            <option value="music">Music</option>
+        </select>
+
+    </div>
+</nav> -->
+
+<nav class="navbar navbar-light bg-primary">
+    <div class="container-fluid">
+        <div class="bar">
+            <input type="text" #searchbar (keyup)="search($event)" [value]="selectedAddress"
+                class="form-control-lg searchIcon" placeholder="Search Here" /><a href="javascript:void(0)">
+                <!-- <i class="fa fa-times" aria-hidden="true" style="position:relative;right:8%"
+                    (click)="clearSearch()"></i> -->
+            </a>
+        </div>
+        <ul *ngIf="addresses.length > 0">
+            <li *ngFor="let address of addresses" (click)="onSelect(address)">
+                <p> {{ address }}</p>
+            </li>
+        </ul>
+        <form class="d-flex">
+            <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button> -->
+            <select name="" id="" (change)="onselectOption($event)" class="form-select form-select-lg">
+                <option value="" selected>Choose</option>
+                <option value="bar">Bar</option>
+                <option value="theatre">Theatre</option>
+                <option value="music">Music</option>
+                <option value="art">Art</option>
+                <option value="theatre">Theatre</option>
+                <option value="music">Music</option>
+                <option value="bar">Bar</option>
+                <option value="theatre">Theatre</option>
+                <option value="music">Music</option>
+            </select>
+            <a href="javascript:void(0)" class="mx-2">
+                <i class="fa fa-sign-out signout" aria-hidden="true" (click)="signout()"></i>
+            </a>
+        </form>
+
+    </div>
+</nav>

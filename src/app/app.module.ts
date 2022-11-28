@@ -13,8 +13,18 @@ import { AuthComponent } from './auth/auth.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './module/header/header.component';
+import { LayoutComponent } from './module/layout/layout.component';
+// import { DropdownModule } from 'primeng/dropdown';
+
 @NgModule({
-  declarations: [AppComponent, MapComponent, AuthComponent],
+  declarations: [
+    AppComponent,
+    MapComponent,
+    AuthComponent,
+    HeaderComponent,
+    LayoutComponent,
+  ],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -25,6 +35,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatButtonModule,
     BrowserAnimationsModule,
+    // DropdownModule,
     NgxMapboxGLModule.withConfig({
       accessToken:
         'pk.eyJ1IjoiaGJoamhzIiwiYSI6ImNsNWo3ZGNhODBmODAzY3BqODhuejB3ZmoifQ.RqsEoPXFgDUq1mryoReotg',
