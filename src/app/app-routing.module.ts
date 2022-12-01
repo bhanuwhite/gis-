@@ -5,6 +5,7 @@ import { GuardGuard } from './guard/guard.guard';
 import { LayoutComponent } from './module/layout/layout.component';
 
 import { MapComponent } from './map/map.component';
+import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
   { path: '', component: AuthComponent },
@@ -15,7 +16,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: MapComponent,
+        component: TestComponent,
       },
     ],
   },

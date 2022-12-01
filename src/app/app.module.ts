@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './module/header/header.component';
 import { LayoutComponent } from './module/layout/layout.component';
+import { TestComponent } from './test/test.component';
 // import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { LayoutComponent } from './module/layout/layout.component';
     AuthComponent,
     HeaderComponent,
     LayoutComponent,
+    TestComponent,
   ],
   imports: [
     FormsModule,
