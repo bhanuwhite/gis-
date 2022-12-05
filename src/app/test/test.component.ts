@@ -20,7 +20,7 @@ import * as turf from '@turf/distance';
 export class TestComponent implements OnInit {
   map: any = {};
   title = 'gis-mapbox';
-  style = 'mapbox://styles/mapbox/streets-v11';
+  style = 'mapbox://styles/mapbox/streets-v12';
 
   layerPaint = {
     'circle-radius': 10,
@@ -32,33 +32,32 @@ export class TestComponent implements OnInit {
   // lang = 42.897852;
 
   constructor(private heaaderservice: HeaderServiceService) {
+    mapboxgl!.accessToken = environment.mapbox.accessToken;
     this.points = jsonData;
   }
 
   ngOnInit(): void {
-    mapboxgl!.accessToken = environment.mapbox.accessToken;
     this.heaaderservice.data$.subscribe((data) => {
       console.log(data);
       if (data !== '') {
         this.coordinatesPoint = data;
-        this.map = new mapboxgl.Map({
-          container: 'map',
-          style: this.style,
-          zoom: 9,
-          center: [this.coordinatesPoint[0], this.coordinatesPoint[1]],
-        });
-        new mapboxgl.Marker()
-          .setLngLat([this.coordinatesPoint[0], this.coordinatesPoint[1]])
-          .addTo(this.map);
+        this.mapBox();
       }
-      // console.log(this.map.target);
     });
+    this.mapBox();
+  }
+  mapBox(): void {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
-      zoom: 9,
+      zoom: 8,
+
       center: [this.coordinatesPoint[0], this.coordinatesPoint[1]],
     });
+    new mapboxgl.Marker()
+      .setLngLat([this.coordinatesPoint[0], this.coordinatesPoint[1]])
+      .addTo(this.map);
+
     // Create a marker and add it to the map.
     let array = [
       [
