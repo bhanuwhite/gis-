@@ -20,7 +20,9 @@ export class HeaderComponent implements OnInit {
   ) {
     // this.points = jsonData;
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.getLocalLocation();
+  }
 
   onselectOption(event: any) {
     console.log(event.target.value);

@@ -19,6 +19,7 @@ import * as turf from '@turf/distance';
 })
 export class TestComponent implements OnInit {
   map: any = {};
+  coord: any = sessionStorage.getItem('cordnate');
   title = 'gis-mapbox';
   style = 'mapbox://styles/mapbox/streets-v12';
 
@@ -26,7 +27,7 @@ export class TestComponent implements OnInit {
     'circle-radius': 10,
     'circle-color': '#3887be',
   };
-  coordinatesPoint: any[] = [86.528876, 21.5152];
+  coordinatesPoint: any[] = [];
   points: any;
   // lat = -78.880453;
   // lang = 42.897852;
@@ -37,21 +38,26 @@ export class TestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Notiflix.Loading.hourglass();
     this.heaaderservice.data$.subscribe((data) => {
+      Notiflix.Loading.remove;
       console.log(data);
       if (data !== '') {
         this.coordinatesPoint = data;
         this.mapBox();
       }
     });
+
+    console.log(JSON.parse(this.coord));
+    this.coordinatesPoint = JSON.parse(this.coord);
+    console.log(this.coordinatesPoint);
     this.mapBox();
   }
-  mapBox(): void {
+  mapBox() {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
       zoom: 8,
-
       center: [this.coordinatesPoint[0], this.coordinatesPoint[1]],
     });
     new mapboxgl.Marker()
@@ -152,8 +158,8 @@ export class TestComponent implements OnInit {
         type: 'circle',
         source: 'places',
         paint: {
-          'circle-color': '#4264fb',
-          'circle-radius': 6,
+          'circle-color': 'red',
+          'circle-radius': 8,
           'circle-stroke-width': 2,
           'circle-stroke-color': '#ffffff',
         },

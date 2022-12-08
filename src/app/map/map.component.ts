@@ -39,7 +39,7 @@ export class MapComponent implements OnInit {
     private APIService: APIService,
     private heaaderservice: HeaderServiceService
   ) {
-    this.points = jsonData;
+    // this.points = jsonData;
     // const map = new mapboxgl.Map({
     //   container: 'map', // container ID
     //   // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
@@ -47,7 +47,6 @@ export class MapComponent implements OnInit {
     //   center: [-91.874, 42.76], // starting position [lng, lat]
     //   zoom: 12, // starting zoom
     // });
-
     // const draw = new MapboxDraw({
     //   displayControlsDefault: false,
     //   // Select which mapbox-gl-draw control buttons to add to the map.
