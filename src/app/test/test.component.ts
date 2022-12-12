@@ -69,6 +69,7 @@ export class TestComponent implements OnInit {
         [-77.31373744962319, 45.22121694402196],
         [-75.50954454630086, 46.17328712652693],
         [-74.02609704801303, 44.08037594258744],
+
         [-77.31373744962319, 45.22121694402196],
       ],
       [
@@ -80,17 +81,10 @@ export class TestComponent implements OnInit {
     ];
     this.drawPolygonalJson(array, 'maine');
     let Draw = new MapboxDraw();
-    this.map.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true,
-        },
-        // When active the map will receive updates to the device's location as it changes.
-        trackUserLocation: true,
-        // Draw an arrow next to the location dot to indicate which direction the device is heading.
-        showUserHeading: true,
-      })
-    );
+
+    // this.map.on('load', () => {
+
+    // });
     this.map.addControl(new mapboxgl.NavigationControl());
     this.map.addControl(Draw);
 
@@ -108,9 +102,14 @@ export class TestComponent implements OnInit {
 
         var distance = (window as any).turf.distance(from, to, options);
         console.log(distance);
+
         Notiflix.Report.info(
           'Distance',
-          `Total distance from ${x.features[0].geometry.coordinates[0]} to ${x.features[0].geometry.coordinates[1]} is ${distance} Kilometer`,
+          `Total distance from ${parseFloat(
+            x.features[0].geometry.coordinates[0]
+          ).toFixed(2)} to ${parseFloat(
+            x.features[0].geometry.coordinates[0]
+          ).toFixed(2)} is ${parseFloat(distance).toFixed(2)} Kilometer`,
           'Ok'
         );
       } else {
@@ -145,9 +144,16 @@ export class TestComponent implements OnInit {
     });
   }
   drawPolygonalJson(cordinates: any, id: any) {
-    console.log(cordinates, id, 'function');
-
+    // console.log(cordinates, id, 'function');
+    // let geolocate = new mapboxgl.GeolocateControl({
+    //   positionOptions: {
+    //     enableHighAccuracy: true,
+    //   },
+    //   trackUserLocation: true,
+    // });
+    // this.map.addControl(geolocate);
     this.map.on('load', () => {
+      // geolocate.trigger();
       this.map.addSource('places', {
         type: 'geojson',
         data: jsonData,

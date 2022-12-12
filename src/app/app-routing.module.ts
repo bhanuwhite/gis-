@@ -6,6 +6,7 @@ import { LayoutComponent } from './module/layout/layout.component';
 
 import { MapComponent } from './map/map.component';
 import { TestComponent } from './test/test.component';
+import { GsMapComponent } from './gs-map/gs-map.component';
 
 const routes: Routes = [
   { path: '', component: AuthComponent },
