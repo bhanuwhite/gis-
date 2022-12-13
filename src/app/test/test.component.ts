@@ -69,7 +69,6 @@ export class TestComponent implements OnInit {
         [-77.31373744962319, 45.22121694402196],
         [-75.50954454630086, 46.17328712652693],
         [-74.02609704801303, 44.08037594258744],
-
         [-77.31373744962319, 45.22121694402196],
       ],
       [
@@ -154,27 +153,45 @@ export class TestComponent implements OnInit {
     // this.map.addControl(geolocate);
     this.map.on('load', () => {
       // geolocate.trigger();
-      this.map.addSource('places', {
-        type: 'geojson',
-        data: jsonData,
-      });
-      // Add a layer showing the places.
-      this.map.addLayer({
-        id: 'places',
-        type: 'circle',
-        source: 'places',
-        paint: {
-          'circle-color': 'red',
-          'circle-radius': 8,
-          'circle-stroke-width': 2,
-          'circle-stroke-color': '#ffffff',
-        },
-      });
+      this.map.loadImage(
+        '../../assets/images/global.png',
+        (error: any, image: any) => {
+          if (error) throw error;
+          console.log(image);
+
+          // Add the image to the map style.
+          this.map.addImage('cat', image);
+
+          this.map.addSource('point', {
+            type: 'geojson',
+            data: jsonData,
+          });
+
+          // Add a layer showing the places.
+          this.map.addLayer({
+            id: 'Points',
+            type: 'symbol',
+            source: 'point',
+            layout: {
+              'icon-image': 'cat', // reference the image
+              'icon-size': 0.05,
+            },
+            // paint: {
+            //   'circle-color': 'red',
+            //   'circle-radius': 8,
+            //   'circle-stroke-width': 2,
+            //   'circle-stroke-color': '#ffffff',
+            // },
+          });
+        }
+      );
       const popup = new mapboxgl.Popup({
         closeButton: false,
         closeOnClick: false,
       });
-      this.map.on('mouseenter', 'places', (e: any) => {
+
+      this.map.on('mouseenter', 'Points', (e: any) => {
+        console.log(e.features[0].properties.description, 'hiii');
         // Change the cursor style as a UI indicator.
         this.map.getCanvas().style.cursor = 'pointer';
 
@@ -194,7 +211,7 @@ export class TestComponent implements OnInit {
         popup.setLngLat(coordinates).setHTML(description).addTo(this.map);
       });
 
-      this.map.on('mouseleave', 'places', () => {
+      this.map.on('mouseleave', 'Points', () => {
         this.map.getCanvas().style.cursor = '';
         popup.remove();
       });
@@ -204,36 +221,34 @@ export class TestComponent implements OnInit {
           type: 'Feature',
           geometry: {
             type: 'Polygon',
-            // These coordinates outline Maine.
             coordinates: cordinates,
           },
         },
-        // data: jsonData,
       });
 
       // ALL YOUR APPLICATION CODE
       // Add a new layer to visualize the polygon.
-      // this.map.addLayer({
-      //   id: id,
-      //   type: 'fill',
-      //   source: id, // reference the data source
-      //   layout: {},
-      //   paint: {
-      //     'fill-color': '#0080ff', // blue color fill
-      //     'fill-opacity': 0.5,
-      //   },
-      // });
+      this.map.addLayer({
+        id: id,
+        type: 'fill',
+        source: id, // reference the data source
+        layout: {},
+        paint: {
+          'fill-color': '#0080ff', // blue color fill
+          'fill-opacity': 0.5,
+        },
+      });
       // // Add a black outline around the polygon.
-      // this.map.addLayer({
-      //   id: 'outline',
-      //   type: 'line',
-      //   source: id,
-      //   layout: {},
-      //   paint: {
-      //     'line-color': '#000',
-      //     'line-width': 3,
-      //   },
-      // });
+      this.map.addLayer({
+        id: 'outline',
+        type: 'line',
+        source: id,
+        layout: {},
+        paint: {
+          'line-color': '#000',
+          'line-width': 3,
+        },
+      });
     });
   }
 }

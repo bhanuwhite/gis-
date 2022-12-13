@@ -15,8 +15,6 @@
         <div class="bar">
             <input type="text" #searchbar (keyup)="search($event)" [value]="selectedAddress"
                 class="form-control-lg searchIcon" placeholder="Search Here" /><a href="javascript:void(0)">
-                <!-- <i class="fa fa-times" aria-hidden="true" style="position:relative;right:8%"
-                    (click)="clearSearch()"></i> -->
             </a>
         </div>
         <ul *ngIf="addresses.length > 0">
