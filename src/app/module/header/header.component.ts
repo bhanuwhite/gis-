@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
   apiCallForLocation(loc: any) {
     this.APIService.get(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${loc}.json?access_token=pk.eyJ1IjoiaGJoamhzIiwiYSI6ImNsNWo3ZGNhODBmODAzY3BqODhuejB3ZmoifQ.RqsEoPXFgDUq1mryoReotg`
-    ).subscribe((res) => {
+    ).subscribe((res: any) => {
       this.coordinatesPoint = res['features'][0]['geometry']['coordinates'];
       this.heaaderservice.sendCoordinatepoint(this.coordinatesPoint);
     });

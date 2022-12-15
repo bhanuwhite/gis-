@@ -19,7 +19,8 @@ import * as turf from '@turf/distance';
 })
 export class TestComponent implements OnInit {
   map: any = {};
-  coord: any = sessionStorage.getItem('cordnate');
+  cordinte: any = sessionStorage.getItem('cordnate');
+  coord: any = JSON.parse(this.cordinte);
   title = 'gis-mapbox';
   style = 'mapbox://styles/mapbox/streets-v12';
   tempData: any = jsonData;
@@ -40,7 +41,7 @@ export class TestComponent implements OnInit {
 
   ngOnInit(): void {
     // Notiflix.Loading.hourglass();
-    this.heaaderservice.data$.subscribe((data) => {
+    this.heaaderservice.data$.subscribe((data: any) => {
       Notiflix.Loading.remove;
       console.log(data);
       if (data !== '') {
@@ -50,8 +51,8 @@ export class TestComponent implements OnInit {
       }
     });
 
-    console.log(JSON.parse(this.coord));
-    this.coordinatesPoint = JSON.parse(this.coord);
+    // console.log(JSON.parse(this.coord));
+    this.coordinatesPoint = this.coord;
     console.log(this.coordinatesPoint);
     this.mapBox();
   }
