@@ -1,6 +1,6 @@
 import { getLocaleDirection } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 // import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // @ts-ignore
@@ -18,7 +18,7 @@ export class AuthComponent implements OnInit {
     password: ['', [Validators.required]],
   });
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private heaaderservice: HeaderServiceService
   ) {}
