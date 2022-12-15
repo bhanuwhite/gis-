@@ -22,7 +22,8 @@ export class TestComponent implements OnInit {
   coord: any = sessionStorage.getItem('cordnate');
   title = 'gis-mapbox';
   style = 'mapbox://styles/mapbox/streets-v12';
-
+  tempData: any = jsonData;
+  zoom: number = 8;
   layerPaint = {
     'circle-radius': 10,
     'circle-color': '#3887be',
@@ -44,6 +45,7 @@ export class TestComponent implements OnInit {
       console.log(data);
       if (data !== '') {
         this.coordinatesPoint = data;
+        this.zoom = 12;
         this.mapBox();
       }
     });
@@ -57,9 +59,42 @@ export class TestComponent implements OnInit {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
-      zoom: 8,
+      zoom: this.zoom,
       center: [this.coordinatesPoint[0], this.coordinatesPoint[1]],
     });
+    const popup = new mapboxgl.Popup({
+      closeButton: false,
+      closeOnClick: false,
+    });
+    // Add markers to the map.
+    for (const marker of this.tempData.features) {
+      // Create a DOM element for each marker.
+      const el = document.createElement('div');
+      const width = marker.properties.iconSize[0];
+      const height = marker.properties.iconSize[1];
+      el.className = 'marker';
+      el.style.backgroundImage = `url(${marker.properties.image})`;
+      el.style.width = `${width}px`;
+      el.style.height = `${height}px`;
+      el.style.backgroundSize = '100%';
+      el.style.cursor = 'pointer';
+      el.addEventListener('mouseenter', () => {
+        // window.alert(marker.properties.message);
+        popup
+          .setLngLat(marker.geometry.coordinates)
+          .setHTML(marker.properties.message)
+          .addTo(this.map);
+      });
+      el.addEventListener('mouseleave', () => {
+        // window.alert(marker.properties.message);
+        popup.remove();
+      });
+      // Add markers to the map.
+      new mapboxgl.Marker(el)
+        .setLngLat(marker.geometry.coordinates)
+        .addTo(this.map);
+    }
+    // new mapboxgl.Marker(el)
     new mapboxgl.Marker()
       .setLngLat([this.coordinatesPoint[0], this.coordinatesPoint[1]])
       .addTo(this.map);
@@ -151,70 +186,81 @@ export class TestComponent implements OnInit {
     //   trackUserLocation: true,
     // });
     // this.map.addControl(geolocate);
+
     this.map.on('load', () => {
+      // this.map.addSource('point', {
+      //   type: 'geojson',
+      //   data: jsonData,
+      // });
       // geolocate.trigger();
-      this.map.loadImage(
-        '../../assets/images/global.png',
-        (error: any, image: any) => {
-          if (error) throw error;
-          console.log(image);
+      // for(let i=0;i>jsonData.length)
+      console.log(this.tempData.features);
 
-          // Add the image to the map style.
-          this.map.addImage('cat', image);
+      // this.map.loadImage(
+      //   '../../assets/images/global.png',
+      //   // '../../assets/images/global.png',
+      //   // '../../assets/images/global.png',
+      //   (error: any, image: any) => {
+      //     if (error) throw error;
+      //     console.log(image);
+      //     // Add the image to the map style.
+      //     // for (let i = 0; i > this.tempData.features.length; i++) {
+      //     this.map.addImage('cat', image);
+      //     // this.map.addImage('cat', image);
+      //     // }
+      //     // Add a layer showing the places.
+      //     // this.map.on('load', 'Points', (e: any) => {
+      //     this.map.addLayer({
+      //       id: 'Points',
+      //       type: 'symbol',
+      //       source: 'point',
+      //       layout: {
+      //         'icon-image': 'cat', // reference the image
+      //         'icon-size': 0.05,
+      //       },
+      //       // id: 'Points',
+      //       // type: 'circle',
+      //       // source: 'point',
+      //       // paint: {
+      //       //   'circle-color': 'red',
+      //       //   'circle-radius': 8,
+      //       //   'circle-stroke-width': 2,
+      //       //   'circle-stroke-color': '#ffffff',
+      //       // },
+      //     });
+      //   }
+      // );
 
-          this.map.addSource('point', {
-            type: 'geojson',
-            data: jsonData,
-          });
+      // const popup = new mapboxgl.Popup({
+      //   closeButton: false,
+      //   closeOnClick: false,
+      // });
 
-          // Add a layer showing the places.
-          this.map.addLayer({
-            id: 'Points',
-            type: 'symbol',
-            source: 'point',
-            layout: {
-              'icon-image': 'cat', // reference the image
-              'icon-size': 0.05,
-            },
-            // paint: {
-            //   'circle-color': 'red',
-            //   'circle-radius': 8,
-            //   'circle-stroke-width': 2,
-            //   'circle-stroke-color': '#ffffff',
-            // },
-          });
-        }
-      );
-      const popup = new mapboxgl.Popup({
-        closeButton: false,
-        closeOnClick: false,
-      });
+      // this.map.on('mouseenter', 'Points', (e: any) => {
+      //   console.log(e.features[0].properties.description, 'hiii');
+      //   // Change the cursor style as a UI indicator.
+      //   this.map.getCanvas().style.cursor = 'pointer';
 
-      this.map.on('mouseenter', 'Points', (e: any) => {
-        console.log(e.features[0].properties.description, 'hiii');
-        // Change the cursor style as a UI indicator.
-        this.map.getCanvas().style.cursor = 'pointer';
+      //   // Copy coordinates array.
+      //   const coordinates = e.features[0].geometry.coordinates.slice();
+      //   const description = e.features[0].properties.description;
 
-        // Copy coordinates array.
-        const coordinates = e.features[0].geometry.coordinates.slice();
-        const description = e.features[0].properties.description;
+      //   // Ensure that if the map is zoomed out such that multiple
+      //   // copies of the feature are visible, the popup appears
+      //   // over the copy being pointed to.
+      //   while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+      //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      //   }
 
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
+      //   // Populate the popup and set its coordinates
+      //   // based on the feature found.
+      //   popup.setLngLat(coordinates).setHTML(description).addTo(this.map);
+      // });
 
-        // Populate the popup and set its coordinates
-        // based on the feature found.
-        popup.setLngLat(coordinates).setHTML(description).addTo(this.map);
-      });
-
-      this.map.on('mouseleave', 'Points', () => {
-        this.map.getCanvas().style.cursor = '';
-        popup.remove();
-      });
+      // this.map.on('mouseleave', 'Points', () => {
+      //   this.map.getCanvas().style.cursor = '';
+      //   popup.remove();
+      // });
       this.map.addSource(id, {
         type: 'geojson',
         data: {

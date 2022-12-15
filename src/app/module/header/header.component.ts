@@ -32,13 +32,13 @@ export class HeaderComponent implements OnInit {
       case 'bar':
         this.heaaderservice.sendData([86.528876, 21.5152]);
         break;
-      case 'theatre':
+      case 'atm':
         this.heaaderservice.sendData([75.1, 32]);
         break;
-      case 'music':
+      case 'school':
         this.heaaderservice.sendData([85.839452, 20.260296]);
         break;
-      case 'art':
+      case 'movie':
         this.heaaderservice.sendData([75.3, 32]);
         break;
     }

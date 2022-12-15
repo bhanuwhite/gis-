@@ -1,74 +1,53 @@
 {
-    "type": "FeatureCollection",
-    "features": [
-      {
-        "type": "Feature",
-        "properties": {
-         
-          "description":
-            "<strong>Theater</stromg>",
-          "icon": "theatre"
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [75.1, 32]
-        }
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "message": "SBI ATM",
+        "iconSize": [60, 60],
+        "image":"../../assets/images/atm.png"
       },
-      {
-        "type": "Feature",
-        "properties": {
-         
-          "description":
-            "<strong>Bar</strong>",
-          "icon": "bar"
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [86.528876, 21.5152]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-         
-          "description":
-            "<strong>Music</strong>",
-          "icon": "music"
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [85.839452, 20.260296]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          
-          "description":
-            "<strong>Gallery</strong>",
-          "icon": "art-gallery"
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [75.3, 32]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-
-          "description":
-            "<strong>Seersucker Bike Ride and Social</strong><p>Feeling dandy? Get fancy, grab your bike, and take part in this years bike ride from Dandies and Quaintrelles. After the ride enjoy a lawn party at Hillwood with jazz, cocktails, paper hat-making, and more. 11:00-7:00 p.m.</p>",
-          "icon": "bicycle"
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [85.4, 32]
-        }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [75.1, 32]
       }
-     
-    ]
-  }
-
-
- 
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "message": "Bar & Hotel",
+        "iconSize": [50, 50],
+        "image": "../../assets/images/hotel.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [86.528876, 21.5152]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "message": "school",
+        "iconSize": [40, 40],
+        "image": "../../assets/images/school.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [85.839452, 20.260296]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "message": "Movie",
+        "iconSize": [40, 40],
+        "image": "../../assets/images/movie.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [75.3, 32]
+      }
+    }
+  ]
+}
