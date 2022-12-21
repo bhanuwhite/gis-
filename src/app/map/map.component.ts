@@ -3,7 +3,7 @@ import { MapMouseEvent } from 'mapbox-gl';
 import { Marker } from 'mapbox-gl';
 // import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 // import { Address } from 'ngx-google-places-autocomplete/objects/address';
-import * as jsonData from '../../assets/points.json';
+// import * as jsonData from '../../assets/points.json';
 import { APIService } from '../api.service';
 import { HeaderServiceService } from '../module/header-service.service';
 import * as mapboxgl from 'mapbox-gl';

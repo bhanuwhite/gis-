@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderServiceService } from '../header-service.service';
-import * as jsonData from '../../../assets/points.json';
+// import * as jsonData from '../../../assets/points.json';
 import { Router } from '@angular/router';
 import { APIService } from '../../api.service';
 @Component({

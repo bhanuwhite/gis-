@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { MapMouseEvent } from 'mapbox-gl';
 import { Marker } from 'mapbox-gl';
 
-import * as jsonData from '../../assets/points.json';
+// import * as jsonData from '../../assets/points.json';
 import { APIService } from '../api.service';
 import { HeaderServiceService } from '../module/header-service.service';
 import * as Notiflix from 'notiflix';

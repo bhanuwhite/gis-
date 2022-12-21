@@ -5,8 +5,6 @@ import { environment } from 'src/environments/environment';
 
 import { MapMouseEvent } from 'mapbox-gl';
 import { Marker } from 'mapbox-gl';
-
-import * as jsonData from '../../assets/points.json';
 import { APIService } from '../api.service';
 import { HeaderServiceService } from '../module/header-service.service';
 import * as Notiflix from 'notiflix';
@@ -23,7 +21,7 @@ export class TestComponent implements OnInit {
   coord: any = JSON.parse(this.cordinte);
   title = 'gis-mapbox';
   style = 'mapbox://styles/mapbox/streets-v12';
-  tempData: any = jsonData;
+  tempData: any;
   zoom: number = 8;
   layerPaint = {
     'circle-radius': 10,
@@ -34,13 +32,26 @@ export class TestComponent implements OnInit {
   // lat = -78.880453;
   // lang = 42.897852;
 
-  constructor(private heaaderservice: HeaderServiceService) {
+  constructor(
+    private heaaderservice: HeaderServiceService,
+    private apiService: APIService
+  ) {
     mapboxgl!.accessToken = environment.mapbox.accessToken;
-    this.points = jsonData;
+    // this.points = jsonData;
   }
 
   ngOnInit(): void {
+    this.getCordinateData();
     // Notiflix.Loading.hourglass();
+    this.coordinatesPoint = this.coord;
+    console.log(this.coordinatesPoint);
+    this.mapBox();
+  }
+  getCordinateData() {
+    this.apiService.getMapCordinate().subscribe((res: any) => {
+      this.tempData = res.data[0].attributes['map'];
+      console.log(this.tempData);
+    });
     this.heaaderservice.data$.subscribe((data: any) => {
       Notiflix.Loading.remove;
       console.log(data);
@@ -52,9 +63,6 @@ export class TestComponent implements OnInit {
     });
 
     // console.log(JSON.parse(this.coord));
-    this.coordinatesPoint = this.coord;
-    console.log(this.coordinatesPoint);
-    this.mapBox();
   }
   mapBox() {
     this.map = new mapboxgl.Map({
